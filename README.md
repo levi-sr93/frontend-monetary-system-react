@@ -76,7 +76,7 @@ Here's why:
 
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
-
+* [Chakra UI](https://chakra-ui.com/)
 
 
 ### Prerequisites
