@@ -4,10 +4,10 @@
 <p align="center">
   
 
-  <h3 align="center">Counter App - React Native</h3>
+  <h3 align="center">Monetary Exchange App - React </h3>
 
   <p align="center">
-    Counter Mobile App!
+    Monetary Exchange App
     <br />
     <br />
     <br />
