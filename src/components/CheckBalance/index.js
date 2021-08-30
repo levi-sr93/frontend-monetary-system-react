@@ -1,9 +1,7 @@
 import React from "react";
-import { Icon } from "@chakra-ui/icons";
-import { GiMoneyStack } from "react-icons/gi";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
-  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -12,7 +10,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { setCurrency } from "../../store/actions/accountActions";
+
 const CheckBalance = ({ amount }) => {
+  const dispatch = useDispatch();
+
+  const {balance, balanceCurrency, currencySymbol} = useSelector((state) => state.account);
+  
   return (
     <Flex direction="column"
     background="gray.100"
@@ -22,15 +26,15 @@ const CheckBalance = ({ amount }) => {
     className="content">
       <Heading>Saldo em Conta</Heading>
       <Box>
-        <Text fontSize="3xl">R$ 100,00</Text>
+        <Text fontSize="3xl"> {currencySymbol} {balanceCurrency !== null ? balanceCurrency : balance }</Text>
       </Box>
       <Box>
         <FormControl p={4}>
           <FormLabel>Escolha a moeda:</FormLabel>
-          <Select>
-            <option value="real">R$ - Real</option>
-            <option value="dolar">$ - Dolar</option>
-            <option value="euro">€ - Euro</option>
+          <Select onChange={(e) => dispatch(setCurrency(e.target.value))}>
+            <option value="real-R$-BRLCotation">R$ - Real 🇧🇷</option>
+            <option value="dolar-$-USDCotation">$ - Dolar 🇺🇸</option>
+            <option value="euro-€-EURCotation">€ - Euro 🇪🇺</option>
           </Select>
         </FormControl>
       </Box>

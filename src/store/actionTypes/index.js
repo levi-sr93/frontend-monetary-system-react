@@ -1,0 +1,5 @@
+export const actionTypes = {
+  MAKE_DEPOSIT : "MAKE_DEPOSIT",
+  SET_CURRENCY: "SET_CURRENCY",
+  MAKE_CONVERTION: 'MAKE_CONVERTION'
+}

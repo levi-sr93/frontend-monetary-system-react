@@ -1,45 +1,75 @@
-import React from "react";
-import { Icon } from "@chakra-ui/icons";
-import { GiMoneyStack } from "react-icons/gi";
+import React, {useState} from "react";
+import { useDispatch } from "react-redux";
+
 import {
   Box,
   Button,
   Flex,
   FormControl,
-  FormLabel,
   Heading,
-  Select,
-  Text,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  useToast
 } from "@chakra-ui/react";
+import { makeDeposit } from "../../store/actions/accountActions";
 
-const MakeDeposit = ({ amount }) => {
+const MakeDeposit = () => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const [depositAmount, setDepositAmount] = useState('');
+
+  const handleDepositAmount = (e) => {
+    setDepositAmount(e.target.value)
+  }
+
+  const handleMakeDeposit = () => {
+    dispatch(makeDeposit(Number(depositAmount)));
+    setDepositAmount('');
+    toast({
+      title: "Depósito realizado.",
+      status: "success",
+      duration: 2000,
+      isClosable: true,
+    })
+  }
+
   return (
-    <Flex direction="column"
-    background="gray.100"
-    p={4}
-    m={4}
-    rounded={4}
-    className="content">
+    <Flex
+      direction="column"
+      background="gray.100"
+      p={4}
+      m={4}
+      rounded={4}
+      className="content"
+    >
       <Heading>Realizar Depósito</Heading>
       <Box>
-        <FormLabel>Saldo</FormLabel>
-        <Text fontSize="3xl">R$ 100,00</Text>
-      </Box>
-      <Box>
-        <FormControl p={4}>
-          <FormLabel>Escolha a moeda:</FormLabel>
-          <Select>
-            <option value="real">R$ - Real</option>
-            <option value="dolar">$ - Dolar</option>
-            <option value="euro">€ - Euro</option>
-          </Select>
+        <FormControl id="deposit" isRequired p={4}>
+          <InputGroup
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            size="lg"
+          >
+            <InputLeftElement children='R$'/>
+            <Input
+              fontSize="1.5rem"
+              size="lg"
+              placeholder="20,00"
+              value={depositAmount !== 0 && depositAmount}
+              onChange={(e) => handleDepositAmount(e)}
+            />
+          </InputGroup>
         </FormControl>
+      </Box>
 
-        <Box p={4}>
-          <Button colorScheme="blue" width="100%">
-            Depositar
+      <Box p={4}>
+        {depositAmount !== '' && (
+          <Button colorScheme="blue" width="100%" onClick={handleMakeDeposit}>
+            Depositar: R$ {depositAmount} 🇧🇷
           </Button>
-        </Box>
+        )}
       </Box>
     </Flex>
   );
