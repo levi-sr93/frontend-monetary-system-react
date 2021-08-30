@@ -10,19 +10,38 @@ import {
   Input,
   Select,
   Text,
+  useToast
 } from "@chakra-ui/react";
 
 import { makeConvertion } from "../../store/actions/accountActions";
 
 const MakeConvertion = () => {
   const dispatch = useDispatch();
+  const toast = useToast();
   const {convertedBalance} = useSelector((state) => state.account)
   const [amount, setAmount] = useState('');
   const [selectedCurrencyBase, setSelectedCurrencyBase] = useState('BRLCotation');
   const [selectedCurrencyTarget, setSelectedCurrencyTarget] = useState('BRLCotation');
 
   const handleConvert = () => {
-    dispatch(makeConvertion(amount, selectedCurrencyBase, selectedCurrencyTarget))    
+    if(amount === ''){
+      toast({
+        title: "Infome um valor para a conversão",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+
+      return
+    }
+    dispatch(makeConvertion(amount, selectedCurrencyBase, selectedCurrencyTarget))
+    toast({
+      title: "Conversão realizada",
+      description: "Verifique no seu histórico",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    })
   }
 
   return (
@@ -38,7 +57,7 @@ const MakeConvertion = () => {
         <Input
           value={amount}
           placeholder="100,00"
-          onChange={(e) => setAmount(parseFloat(e.target.value))}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </Box>
       <Box  p={4}>

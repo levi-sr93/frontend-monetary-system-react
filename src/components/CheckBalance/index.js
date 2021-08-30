@@ -12,7 +12,7 @@ import {
 
 import { setCurrency } from "../../store/actions/accountActions";
 
-const CheckBalance = ({ amount }) => {
+const CheckBalance = () => {
   const dispatch = useDispatch();
 
   const {balance, balanceCurrency, currencySymbol} = useSelector((state) => state.account);

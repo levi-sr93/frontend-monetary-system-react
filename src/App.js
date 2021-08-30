@@ -37,7 +37,7 @@ function App() {
         rounded={4}
         className="content"
       >
-        <Heading textAlign="center">App Cambio Monetário</Heading>
+        <Heading textAlign="center">App Câmbio Monetário</Heading>
 
         <Box p={4}>
           <Button
